@@ -1,0 +1,7 @@
+{
+  "name": "planettrip",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
