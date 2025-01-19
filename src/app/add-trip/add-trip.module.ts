@@ -1,19 +1,22 @@
-// src/app/home/home.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
-import { HomePageRoutingModule } from './home-routing.module';
-import { HomePage } from './home.page';
+import { AddTripPage } from './add-trip.page';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    RouterModule.forChild([
+      {
+        path: '',
+        component: AddTripPage
+      }
+    ])
   ],
-  declarations: [HomePage]
+  declarations: [AddTripPage]
 })
-export class HomePageModule { }
+export class AddTripPageModule { }

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Trip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="addTrip()">
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-input
+        [(ngModel)]="newTrip.description"
+        name="description"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Type</ion-label>
+      <ion-input [(ngModel)]="newTrip.type" name="type" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">State</ion-label>
+      <ion-input [(ngModel)]="newTrip.state" name="state" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Start Date</ion-label>
+      <ion-datetime-button datetime="start-datetime"></ion-datetime-button>
+    </ion-item>
+    <ion-datetime
+      id="start-datetime"
+      presentation="date"
+      [(ngModel)]="newTrip.startAt"
+      name="startAt"
+    ></ion-datetime>
+
+    <ion-item>
+      <ion-label position="stacked">End Date</ion-label>
+      <ion-datetime-button datetime="end-datetime"></ion-datetime-button>
+    </ion-item>
+    <ion-datetime
+      id="end-datetime"
+      presentation="date"
+      [(ngModel)]="newTrip.endAt"
+      name="endAt"
+    ></ion-datetime>
+
+    <ion-item>
+      <ion-label position="stacked">Note</ion-label>
+      <ion-textarea [(ngModel)]="newTrip.note" name="note"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Favorite</ion-label>
+      <ion-checkbox [(ngModel)]="newTrip.isFav" name="isFav"></ion-checkbox>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top">
+      Add Trip
+    </ion-button>
+  </form>
+</ion-content>

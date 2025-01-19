@@ -1,0 +1,259 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Trip Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Loading indicator -->
+  <ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
+
+  <!-- Error state -->
+  <ion-item *ngIf="error" color="danger">
+    <ion-icon name="alert-circle" slot="start"></ion-icon>
+    <ion-label>{{ error }}</ion-label>
+  </ion-item>
+
+  <!-- Trip details -->
+  <ng-container *ngIf="trip && !isLoading && !error">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ trip.description }}</ion-card-title>
+        <ion-card-subtitle>
+          <ion-badge color="primary">{{ trip.type }}</ion-badge>
+          <ion-badge color="secondary" class="ion-margin-start"
+            >{{ trip.state }}</ion-badge
+          >
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <!-- Start Date -->
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h2>Start Date</h2>
+              <p>
+                {{ trip.startAt ? (trip.startAt | date:'medium') : 'Not
+                specified' }}
+              </p>
+            </ion-label>
+          </ion-item>
+
+          <!-- End Date -->
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h2>End Date</h2>
+              <p>
+                {{ trip.endAt ? (trip.endAt | date:'medium') : 'Not specified'
+                }}
+              </p>
+            </ion-label>
+          </ion-item>
+
+          <!-- Created By -->
+          <ion-item>
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h2>Created By</h2>
+              <p>{{ trip.createdBy }}</p>
+            </ion-label>
+          </ion-item>
+
+          <!-- Favorite Status -->
+          <ion-item>
+            <ion-icon
+              [name]="trip.isFav ? 'star' : 'star-outline'"
+              slot="start"
+              [color]="trip.isFav ? 'warning' : 'medium'"
+            ></ion-icon>
+            <ion-label>
+              <h2>Favorite Status</h2>
+              <p>{{ trip.isFav ? 'Marked as favorite' : 'Not a favorite' }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Locations Section -->
+    <ion-card *ngIf="locations && locations.length > 0">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
+          Locations
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let location of locations">
+            <ion-icon name="navigate-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h2>{{ location.description }}</h2>
+              <p>Type: {{ location.type }}</p>
+              <p>State: {{ location.state }}</p>
+              <p *ngIf="location.map">
+                <a [href]="location.map" target="_blank">View on Map</a>
+              </p>
+            </ion-label>
+            <ion-buttons slot="end">
+              <ion-button (click)="editLocation(location)">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="danger" (click)="deleteLocation(location)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- No Locations Message -->
+    <ion-card *ngIf="!locations || locations.length === 0">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
+          Locations
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="ion-text-center ion-padding">
+          <ion-icon
+            name="map-outline"
+            style="font-size: 48px; color: var(--ion-color-medium)"
+          ></ion-icon>
+          <p>No locations added to this trip</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Comments Section -->
+    <ion-card *ngIf="comments && comments.length > 0">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon
+            name="document-text-outline"
+            class="ion-margin-end"
+          ></ion-icon>
+          Comments
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let comment of comments">
+            <ion-label>
+              <p>{{ comment.comment }}</p>
+              <p
+                class="ion-text-end"
+                style="font-size: 0.8em; color: var(--ion-color-medium)"
+              >
+                {{ comment.createdAt | date:'medium' }}
+              </p>
+            </ion-label>
+            <ion-buttons slot="end">
+              <ion-button color="danger" (click)="deleteComment(comment)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- No Comments Message -->
+    <ion-card *ngIf="!comments || comments.length === 0">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon
+            name="document-text-outline"
+            class="ion-margin-end"
+          ></ion-icon>
+          Comments
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="ion-text-center ion-padding">
+          <ion-icon
+            name="document-outline"
+            style="font-size: 48px; color: var(--ion-color-medium)"
+          ></ion-icon>
+          <p>No comments added to this trip</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Buttons -->
+    <ion-grid class="ion-padding">
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="primary" (click)="editTrip()">
+            <ion-icon name="create-outline" slot="start"></ion-icon>
+            Edit Trip
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" color="danger" (click)="deleteTrip()">
+            <ion-icon name="trash-outline" slot="start"></ion-icon>
+            Delete Trip
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="secondary" (click)="addLocation()">
+            <ion-icon name="add-outline" slot="start"></ion-icon>
+            Add Location
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" color="secondary" (click)="addComment()">
+            <ion-icon name="add-outline" slot="start"></ion-icon>
+            Add Comment
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <!-- Empty state -->
+  <div
+    class="ion-text-center ion-padding"
+    *ngIf="!trip && !isLoading && !error"
+  >
+    <ion-icon
+      name="document-outline"
+      style="font-size: 48px; color: var(--ion-color-medium)"
+    ></ion-icon>
+    <p>No trip details available</p>
+    <ion-button routerLink="/home" color="primary">
+      <ion-icon name="home-outline" slot="start"></ion-icon>
+      Return to Home
+    </ion-button>
+  </div>
+</ion-content>
+
+<!-- Footer -->
+<ion-footer *ngIf="trip && !isLoading && !error">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" routerLink="/home">
+        <ion-icon name="home-outline" slot="start"></ion-icon>
+        Home
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary">
+        <ion-icon name="share-social-outline" slot="start"></ion-icon>
+        Share
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
