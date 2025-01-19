@@ -9,59 +9,121 @@
 
 <ion-content class="ion-padding">
   <form (ngSubmit)="addTrip()">
-    <ion-item>
-      <ion-label position="stacked">Description</ion-label>
-      <ion-input
-        [(ngModel)]="newTrip.description"
-        name="description"
-        required
-      ></ion-input>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Description</ion-label>
+            <ion-input
+              [(ngModel)]="newTrip.description"
+              name="description"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-label position="stacked">Type</ion-label>
-      <ion-input [(ngModel)]="newTrip.type" name="type" required></ion-input>
-    </ion-item>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-select
+              [(ngModel)]="newTrip.type"
+              name="type"
+              interface="popover"
+              placeholder="Select Type"
+            >
+              <ion-select-option value="business">Business</ion-select-option>
+              <ion-select-option value="leisure">Leisure</ion-select-option>
+              <ion-select-option value="adventure">Adventure</ion-select-option>
+              <ion-select-option value="other">Other</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-label position="stacked">State</ion-label>
-      <ion-input [(ngModel)]="newTrip.state" name="state" required></ion-input>
-    </ion-item>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">State</ion-label>
+            <ion-input
+              [(ngModel)]="newTrip.state"
+              name="state"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-label position="stacked">Start Date</ion-label>
-      <ion-datetime-button datetime="start-datetime"></ion-datetime-button>
-    </ion-item>
-    <ion-datetime
-      id="start-datetime"
-      presentation="date"
-      [(ngModel)]="newTrip.startAt"
-      name="startAt"
-    ></ion-datetime>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Start Date</ion-label>
+            <ion-datetime-button
+              datetime="start-datetime"
+              class="date-button"
+            ></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  id="start-datetime"
+                  presentation="date"
+                  [(ngModel)]="newTrip.startAt"
+                  name="startAt"
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">End Date</ion-label>
+            <ion-datetime-button
+              datetime="end-datetime"
+              class="date-button"
+            ></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  id="end-datetime"
+                  presentation="date"
+                  [(ngModel)]="newTrip.endAt"
+                  name="endAt"
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-label position="stacked">End Date</ion-label>
-      <ion-datetime-button datetime="end-datetime"></ion-datetime-button>
-    </ion-item>
-    <ion-datetime
-      id="end-datetime"
-      presentation="date"
-      [(ngModel)]="newTrip.endAt"
-      name="endAt"
-    ></ion-datetime>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Note</ion-label>
+            <ion-textarea [(ngModel)]="newTrip.note" name="note"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-label position="stacked">Note</ion-label>
-      <ion-textarea [(ngModel)]="newTrip.note" name="note"></ion-textarea>
-    </ion-item>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label>Favorite</ion-label>
+            <ion-checkbox
+              [(ngModel)]="newTrip.isFav"
+              name="isFav"
+            ></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-label>Favorite</ion-label>
-      <ion-checkbox [(ngModel)]="newTrip.isFav" name="isFav"></ion-checkbox>
-    </ion-item>
-
-    <ion-button expand="block" type="submit" class="ion-margin-top">
-      Add Trip
-    </ion-button>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button expand="block" type="submit" class="ion-margin-top">
+            Add Trip
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>
