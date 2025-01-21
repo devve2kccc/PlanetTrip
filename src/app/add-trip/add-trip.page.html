@@ -46,11 +46,18 @@
         <ion-col size="12">
           <ion-item>
             <ion-label position="stacked">State</ion-label>
-            <ion-input
+            <ion-select
               [(ngModel)]="newTrip.state"
               name="state"
+              interface="popover"
+              placeholder="Select State"
               required
-            ></ion-input>
+            >
+              <ion-select-option value="planned">Planned</ion-select-option>
+              <ion-select-option value="ongoing">Ongoing</ion-select-option>
+              <ion-select-option value="completed">Completed</ion-select-option>
+              <ion-select-option value="cancelled">Cancelled</ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>
