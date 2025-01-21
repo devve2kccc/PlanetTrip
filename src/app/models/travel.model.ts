@@ -7,7 +7,7 @@ export interface Travel {
     endAt: Date | null;
     createdBy: string;
     isFav: boolean;
-    locations?: Location[]; 
+    locations?: Location[];
     comments?: TravelComment[];
 }
 
@@ -27,8 +27,8 @@ export interface Comment {
 
 export interface TravelComment {
     id?: string;
-    travelId?: string; // Optional for travel comments
-    locationId?: string; // Optional for location comments
+    travelId?: string;
+    locationId?: string;
     comment: string;
     createdAt: Date;
-  }
+}

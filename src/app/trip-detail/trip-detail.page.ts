@@ -45,7 +45,7 @@ export class TripDetailPage implements OnInit {
     this.travelService.getTravel(id).subscribe({
       next: (data) => {
         this.trip = data;
-        this.comments = data.comments || []; // Extract comments from travel data
+        this.comments = data.comments || [];
         this.isLoading = false;
       },
       error: (error) => {

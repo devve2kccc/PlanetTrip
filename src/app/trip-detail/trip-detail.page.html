@@ -8,16 +8,13 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Loading indicator -->
   <ion-progress-bar type="indeterminate" *ngIf="isLoading"></ion-progress-bar>
 
-  <!-- Error state -->
   <ion-item *ngIf="error" color="danger">
     <ion-icon name="alert-circle" slot="start"></ion-icon>
     <ion-label>{{ error }}</ion-label>
   </ion-item>
 
-  <!-- Trip details -->
   <ng-container *ngIf="trip && !isLoading && !error">
     <ion-card>
       <ion-card-header>
@@ -32,7 +29,6 @@
 
       <ion-card-content>
         <ion-list>
-          <!-- Start Date -->
           <ion-item>
             <ion-icon name="calendar-outline" slot="start"></ion-icon>
             <ion-label>
@@ -44,7 +40,6 @@
             </ion-label>
           </ion-item>
 
-          <!-- End Date -->
           <ion-item>
             <ion-icon name="calendar-outline" slot="start"></ion-icon>
             <ion-label>
@@ -56,7 +51,6 @@
             </ion-label>
           </ion-item>
 
-          <!-- Created By -->
           <ion-item>
             <ion-icon name="person-outline" slot="start"></ion-icon>
             <ion-label>
@@ -65,7 +59,6 @@
             </ion-label>
           </ion-item>
 
-          <!-- Favorite Status -->
           <ion-item>
             <ion-icon
               [name]="trip.isFav ? 'star' : 'star-outline'"
@@ -81,7 +74,6 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- Locations Section -->
     <ion-card *ngIf="locations && locations.length > 0">
       <ion-card-header>
         <ion-card-title>
@@ -115,7 +107,6 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- No Locations Message -->
     <ion-card *ngIf="!locations || locations.length === 0">
       <ion-card-header>
         <ion-card-title>
@@ -134,7 +125,6 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- Comments Section -->
     <ion-card *ngIf="comments && comments.length > 0">
       <ion-card-header>
         <ion-card-title>
@@ -168,7 +158,6 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- No Comments Message -->
     <ion-card *ngIf="!comments || comments.length === 0">
       <ion-card-header>
         <ion-card-title>
@@ -190,7 +179,6 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- Action Buttons -->
     <ion-grid class="ion-padding">
       <ion-row>
         <ion-col>
@@ -223,7 +211,6 @@
     </ion-grid>
   </ng-container>
 
-  <!-- Empty state -->
   <div
     class="ion-text-center ion-padding"
     *ngIf="!trip && !isLoading && !error"
@@ -240,7 +227,6 @@
   </div>
 </ion-content>
 
-<!-- Footer -->
 <ion-footer *ngIf="trip && !isLoading && !error">
   <ion-toolbar>
     <ion-buttons slot="start">

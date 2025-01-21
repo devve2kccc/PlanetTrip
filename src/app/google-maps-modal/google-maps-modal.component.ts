@@ -8,13 +8,13 @@ import { ModalController } from '@ionic/angular';
   standalone: false
 })
 export class GoogleMapsModalComponent implements OnInit {
-  latitude: number = -34.397;
-  longitude: number = 150.644;
+  latitude: number = 41.026683;
+  longitude: number = -7.779658;
   selectedLocation: string = '';
 
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   mapClicked(event: google.maps.MapMouseEvent) {
     if (event.latLng) {

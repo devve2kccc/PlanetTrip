@@ -16,7 +16,7 @@ export class AddTripPage {
     state: '',
     startAt: null,
     endAt: null,
-    createdBy: 'Alvaro', // Replace with actual user
+    createdBy: 'Alvaro',
     note: '',
     isFav: false
   };
